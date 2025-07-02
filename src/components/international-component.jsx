@@ -8,13 +8,13 @@ const IntlComponent = () => {
   });
   return (
     <>
-      <div aria-label="theme">Theme: {theme}</div>
+      <div aria-label="theme">theme: {theme}</div>
       <div aria-label="selected theme">Selected theme: {selectedTheme}</div>
 
-      <select value={selectedTheme} onchange={(e) => setTheme(e.target.value)}>
-        <option value="light">light</option>
-        <option value="dark">dark</option>
-        <option value="system">system</option>
+      <select value={selectedTheme} onChange={(e) => setTheme(e.target.value)}>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="system">System</option>
       </select>
       <button onClick={() => setTheme("system")}>System Mode</button>
       <div>Price: {intl.format(199.99)}</div>

@@ -3,10 +3,17 @@ import { cleanup } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, afterEach, beforeEach, expect, it } from "vitest";
+import { ThemeProvider } from "@/contexts/theme-context";
 
 describe("Ui testing for Common", () => {
   afterEach(cleanup);
-  beforeEach(() => render(<Common />));
+  beforeEach(() =>
+    render(
+      <ThemeProvider>
+        <Common />
+      </ThemeProvider>,
+    ),
+  );
 
   it("Initial Value of theme", () => {
     const theme = screen.getByRole("combobox");
@@ -33,6 +40,6 @@ describe("Ui testing for Common", () => {
 
     expect(selectedTheme.textContent).toBe("Selected theme: dark");
 
-    expect(currentTheme.textContent).toHaveTextContent("Theme: dark");
+    expect(currentTheme.textContent).toBe("theme: dark");
   });
 });

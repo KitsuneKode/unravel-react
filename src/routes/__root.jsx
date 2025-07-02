@@ -10,24 +10,22 @@ export const Route = createRootRoute({
 
 function Root() {
   return (
-    <ThemeProvider>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "1rem",
-          margin: "0 auto",
-          maxWidth: "800px",
-        }}
-      >
-        <Link to="/anon">Anon</Link>
-        <Link to="/">/</Link>
-        <Link to="/common">Common</Link>
-        <Outlet />
-        <ReactQueryDevtools position="botton" initialIsOpen={false} />
-        <TanStackRouterDevtools position="bottom-left" />
-      </div>
-    </ThemeProvider>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "1rem",
+        margin: "0 auto",
+        maxWidth: "800px",
+      }}
+    >
+      <Link to="/anon">Anon</Link>
+      <Link to="/">/</Link>
+      <Link to="/common">Common</Link>
+      <Outlet />
+      <ReactQueryDevtools position="botton" initialIsOpen={false} />
+      <TanStackRouterDevtools position="bottom-left" />
+    </div>
   );
 }
