@@ -9,14 +9,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [
     tanstackRouter({ target: "react", autoCodeSplitting: true }),
-    react(),
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler"]],
+      },
+    }),
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  test: {
-    environment: "happy-dom",
-  },
+  // test: {
+  //   environment: "happy-dom",
+  //   coverage: {
+  //     reporter: ["text", "json", "html"],
+  //   },
+  // },
 });

@@ -7,7 +7,16 @@ const router = createRouter({
   routeTree,
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      experimental_prefetchInRender: true,
+      refetchOnWindowFocus: false,
+      retry: 3,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+});
 
 const App = () => {
   return (

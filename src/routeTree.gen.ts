@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CommonRouteImport } from './routes/common'
 
 const PokemonLazyRouteImport = createFileRoute('/pokemon')()
+const EasyFormLazyRouteImport = createFileRoute('/easy-form')()
 const AnonLazyRouteImport = createFileRoute('/anon')()
 const IndexLazyRouteImport = createFileRoute('/')()
 
@@ -22,6 +23,11 @@ const PokemonLazyRoute = PokemonLazyRouteImport.update({
   path: '/pokemon',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/pokemon.lazy').then((d) => d.Route))
+const EasyFormLazyRoute = EasyFormLazyRouteImport.update({
+  id: '/easy-form',
+  path: '/easy-form',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/easy-form.lazy').then((d) => d.Route))
 const AnonLazyRoute = AnonLazyRouteImport.update({
   id: '/anon',
   path: '/anon',
@@ -42,12 +48,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/easy-form': typeof EasyFormLazyRoute
   '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/easy-form': typeof EasyFormLazyRoute
   '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRoutesById {
@@ -55,20 +63,22 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/easy-form': typeof EasyFormLazyRoute
   '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/common' | '/anon' | '/pokemon'
+  fullPaths: '/' | '/common' | '/anon' | '/easy-form' | '/pokemon'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/common' | '/anon' | '/pokemon'
-  id: '__root__' | '/' | '/common' | '/anon' | '/pokemon'
+  to: '/' | '/common' | '/anon' | '/easy-form' | '/pokemon'
+  id: '__root__' | '/' | '/common' | '/anon' | '/easy-form' | '/pokemon'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   CommonRoute: typeof CommonRoute
   AnonLazyRoute: typeof AnonLazyRoute
+  EasyFormLazyRoute: typeof EasyFormLazyRoute
   PokemonLazyRoute: typeof PokemonLazyRoute
 }
 
@@ -79,6 +89,13 @@ declare module '@tanstack/react-router' {
       path: '/pokemon'
       fullPath: '/pokemon'
       preLoaderRoute: typeof PokemonLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/easy-form': {
+      id: '/easy-form'
+      path: '/easy-form'
+      fullPath: '/easy-form'
+      preLoaderRoute: typeof EasyFormLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/anon': {
@@ -109,6 +126,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   CommonRoute: CommonRoute,
   AnonLazyRoute: AnonLazyRoute,
+  EasyFormLazyRoute: EasyFormLazyRoute,
   PokemonLazyRoute: PokemonLazyRoute,
 }
 export const routeTree = rootRouteImport
