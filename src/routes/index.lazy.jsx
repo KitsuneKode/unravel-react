@@ -15,6 +15,10 @@ function RouteComponent() {
         A corresponding file will be added on making react from scratch and
         upderstanding its internals completely{" "}
       </h2>
+      <h2>
+        There are some more things that are included in this repository such as
+        UI testing with Vitest happy-dom and react testing library,
+      </h2>
       <Link to="/anon">Anon</Link>
     </div>
   );

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { createRootRoute, Outlet, Link } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@/contexts/theme-context.jsx";
 import "@/App.css";
 
@@ -25,7 +25,8 @@ function Root() {
         <Link to="/">/</Link>
         <Link to="/common">Common</Link>
         <Outlet />
-        <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools position="botton" initialIsOpen={false} />
+        <TanStackRouterDevtools position="bottom-left" />
       </div>
     </ThemeProvider>
   );

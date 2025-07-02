@@ -13,9 +13,15 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CommonRouteImport } from './routes/common'
 
+const PokemonLazyRouteImport = createFileRoute('/pokemon')()
 const AnonLazyRouteImport = createFileRoute('/anon')()
 const IndexLazyRouteImport = createFileRoute('/')()
 
+const PokemonLazyRoute = PokemonLazyRouteImport.update({
+  id: '/pokemon',
+  path: '/pokemon',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/pokemon.lazy').then((d) => d.Route))
 const AnonLazyRoute = AnonLazyRouteImport.update({
   id: '/anon',
   path: '/anon',
@@ -36,34 +42,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexLazyRoute
   '/common': typeof CommonRoute
   '/anon': typeof AnonLazyRoute
+  '/pokemon': typeof PokemonLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/common' | '/anon'
+  fullPaths: '/' | '/common' | '/anon' | '/pokemon'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/common' | '/anon'
-  id: '__root__' | '/' | '/common' | '/anon'
+  to: '/' | '/common' | '/anon' | '/pokemon'
+  id: '__root__' | '/' | '/common' | '/anon' | '/pokemon'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   CommonRoute: typeof CommonRoute
   AnonLazyRoute: typeof AnonLazyRoute
+  PokemonLazyRoute: typeof PokemonLazyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pokemon': {
+      id: '/pokemon'
+      path: '/pokemon'
+      fullPath: '/pokemon'
+      preLoaderRoute: typeof PokemonLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/anon': {
       id: '/anon'
       path: '/anon'
@@ -92,6 +109,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   CommonRoute: CommonRoute,
   AnonLazyRoute: AnonLazyRoute,
+  PokemonLazyRoute: PokemonLazyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
